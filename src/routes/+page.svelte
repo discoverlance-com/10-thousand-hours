@@ -1,8 +1,5 @@
-<script>
-</script>
-
 <svelte:head>
-	<title>Home</title>
+	<title>Home - 10 thousand hours</title>
 	<meta
 		name="description"
 		content="Tool to help you make progress each day by practicing each learning task for 10,000 hours."
