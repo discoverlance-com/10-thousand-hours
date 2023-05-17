@@ -1,12 +1,25 @@
+import defaultTheme from 'tailwindcss/defaultTheme';
+import skeletonPlugin from '@skeletonlabs/skeleton/tailwind/skeleton.cjs';
+import path from 'path';
+
 /** @type {import('tailwindcss').Config}*/
 const config = {
-	content: ['./src/**/*.{html,js,svelte,ts}'],
+	darkMode: 'class',
+	content: [
+		'./src/**/*.{html,js,svelte,ts}',
+		path.join(require.resolve('@skeletonlabs/skeleton'), '../**/*.{html,js,svelte,ts}')
+	],
 
 	theme: {
-		extend: {}
+		extend: {
+			fontFamily: {
+				sans: ['Wix Madefor Display', ...defaultTheme.fontFamily.sans],
+				header: ['Roboto', ...defaultTheme.fontFamily.sans]
+			}
+		}
 	},
 
-	plugins: []
+	plugins: [...skeletonPlugin()]
 };
 
 module.exports = config;
