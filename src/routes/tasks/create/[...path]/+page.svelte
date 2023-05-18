@@ -78,7 +78,7 @@
 			</form>
 		</div>
 	{:else}
-		<div class="max-w-md mr-auto mt-8">
+		<div class="max-w-md mx-auto mt-8">
 			<form on:submit|preventDefault={handleSubmit}>
 				<label class="label">
 					<span>Title</span>
