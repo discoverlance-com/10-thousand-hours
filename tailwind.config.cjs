@@ -1,5 +1,6 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
 import skeletonPlugin from '@skeletonlabs/skeleton/tailwind/skeleton.cjs';
+import tailwindForms from '@tailwindcss/forms';
 import path from 'path';
 
 /** @type {import('tailwindcss').Config}*/
@@ -19,7 +20,7 @@ const config = {
 		}
 	},
 
-	plugins: [...skeletonPlugin()]
+	plugins: [tailwindForms, ...skeletonPlugin()]
 };
 
 module.exports = config;

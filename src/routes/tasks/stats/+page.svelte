@@ -4,5 +4,5 @@
 </svelte:head>
 
 <section>
-	<h1 class="text-4xl font-bold text-center">Statistics and Insights</h1>
+	<h1 class="text-4xl font-bold text-center gradient-heading">Statistics and Insights</h1>
 </section>
