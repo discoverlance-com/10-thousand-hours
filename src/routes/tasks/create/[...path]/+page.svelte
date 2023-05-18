@@ -2,7 +2,6 @@
 	import { allTasks } from '$lib/stores/taskStore';
 	import { fade } from 'svelte/transition';
 	import { goto } from '$app/navigation';
-	import { browser } from '$app/environment';
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 

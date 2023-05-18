@@ -51,7 +51,7 @@
 
 	<div class="mt-8">
 		{#if browser && $allTasks.length < 1}
-			<aside class="alert variant-ghost" transition:fade>
+			<aside class="alert variant-ghost">
 				<div>
 					<span class="material-icons"> battery_alert </span>
 				</div>
