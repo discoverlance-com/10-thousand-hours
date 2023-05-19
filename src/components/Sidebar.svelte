@@ -6,7 +6,7 @@
 	const selected = derived(page, ($page) => $page.url.pathname);
 </script>
 
-<div class="sticky">
+<div class="sticky w-20">
 	<AppRail {selected}>
 		<AppRailTile label="Home" href="/">
 			<span class="material-icons">dashboard</span>

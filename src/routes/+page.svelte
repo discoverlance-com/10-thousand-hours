@@ -14,7 +14,8 @@
 			const transform = style.transform === 'none' ? '' : style.transform;
 
 			return {
-				duration: 600,
+				duration: typeof params.duration === 'number' ? params.duration : 100,
+				delay: params.delay || 0,
 				easing: quintOut,
 				css: (t) => `
 					transform: ${transform} scale(${t});
@@ -33,7 +34,7 @@
 	/>
 </svelte:head>
 
-<section>
+<section in:fade={{ duration: 100, delay: 100 }}>
 	<h1 class="text-4xl md:text-5xl font-bold text-center gradient-heading">Welcome</h1>
 
 	{#if $allTasks.length >= 1}
@@ -63,35 +64,39 @@
 					<a class="btn variant-filled-primary" href="/tasks/create">Add Task</a>
 				</div>
 			</aside>
+		{:else}
+			<div class="grid md:grid-cols-3 grid-cols-2 gap-8">
+				{#each $allTasks as task (task.id)}
+					<div
+						animate:flip
+						in:receive={{ key: task.id }}
+						out:send={{ key: task.id, duration: 100, delay: 0 }}
+					>
+						<Card>
+							<span slot="title">
+								<h2>{task.title}</h2>
+							</span>
+							<p class="badge variant-filled-success">
+								Time Spent: {task.total_minutes_spent / 60} / {task.total_minutes_left / 60 + ' '}
+								<span>(hours)</span>
+							</p>
+							<span slot="footer">
+								<div class="btn-group variant-filled">
+									<a href={'/tasks/create/' + task.id}>Update</a>
+									<button
+										class="bg-warning-600 hover:bg-warning-400"
+										on:click={() => {
+											if (confirm('Are you sure?')) {
+												allTasks.remove(task.id);
+											}
+										}}>Delete</button
+									>
+								</div>
+							</span>
+						</Card>
+					</div>
+				{/each}
+			</div>
 		{/if}
-		<div class="grid md:grid-cols-3 grid-cols-2 gap-8">
-			{#each $allTasks as task (task.id)}
-				<div in:receive={{ key: task.id }} out:send={{ key: task.id }} animate:flip>
-					<Card>
-						<span slot="title">
-							<h2>{task.title}</h2>
-						</span>
-
-						<p class="badge variant-filled-success">
-							Time Spent: {task.total_minutes_spent / 60} / {task.total_minutes_left / 60 + ' '}
-							<span>(hours)</span>
-						</p>
-						<span slot="footer">
-							<div class="btn-group variant-filled">
-								<a href={'/tasks/create/' + task.id}>Update</a>
-								<button
-									class="bg-warning-600 hover:bg-warning-400"
-									on:click={() => {
-										if (confirm('Are you sure?')) {
-											allTasks.remove(task.id);
-										}
-									}}>Delete</button
-								>
-							</div>
-						</span>
-					</Card>
-				</div>
-			{/each}
-		</div>
 	</div>
 </section>

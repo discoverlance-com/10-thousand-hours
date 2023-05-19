@@ -8,11 +8,11 @@
 	import Sidebar from '$components/Sidebar.svelte';
 </script>
 
-<div class="app max-w-7xl mx-auto relative">
+<div class="max-w-7xl mx-auto relative">
 	<Header />
 	<div class="flex gap-4 items-start">
 		<Sidebar />
-		<main class="flex-1 pt-5 px-4">
+		<main class="flex-1 p-4">
 			<slot />
 		</main>
 	</div>
