@@ -52,7 +52,7 @@
 </script>
 
 <svelte:head>
-	<title>Create Task - 10 thousand hours</title>
+	<title>{taskId ? 'Update ' : 'Create '} - 10 thousand hours</title>
 	<meta name="description" content={taskId ? 'Update ' : 'Create ' + 'a learning task'} />
 </svelte:head>
 
@@ -95,7 +95,7 @@
 						</div>
 						<input
 							type="text"
-							class=""
+							class:input-error={error}
 							bind:value={task}
 							maxlength="100"
 							on:input={() => {
@@ -121,7 +121,7 @@
 						</div>
 						<input
 							type="text"
-							class=""
+							class:input-error={error}
 							placeholder="Enter title of what you want to learn..."
 							bind:value={task}
 							maxlength="100"
