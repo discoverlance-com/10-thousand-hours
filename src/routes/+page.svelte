@@ -5,6 +5,7 @@
 	import { crossfade, fade } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
 	import Card from '$components/Card.svelte';
+	import { exportTasks } from '$lib/file';
 
 	const [send, receive] = crossfade({
 		duration: (d) => Math.sqrt(d * 200),
@@ -34,11 +35,15 @@
 	/>
 </svelte:head>
 
-<section in:fade={{ duration: 100, delay: 100 }}>
+<section>
 	<h1 class="text-4xl md:text-5xl font-bold text-center gradient-heading">Welcome</h1>
+	<p class="text-left my-2">
+		There's a saying that if you put <span>10,000 hours</span> into any task, you could build expertise
+		and I firmly believe in that.This app to help you along that journey.
+	</p>
 
 	{#if $allTasks.length >= 1}
-		<div class="flex justify-end my-2">
+		<div class="flex justify-end mt-2 mb-4 gap-4">
 			<button
 				class="btn variant-filled-primary"
 				on:click={() => {
@@ -46,6 +51,10 @@
 						allTasks.reset();
 					}
 				}}>Delete All</button
+			>
+
+			<button class="btn variant-ringed-primary" on:click={() => exportTasks($allTasks)}
+				>Export Progress</button
 			>
 		</div>
 	{/if}
@@ -77,8 +86,8 @@
 								<h2>{task.title}</h2>
 							</span>
 							<p class="badge variant-filled-success">
-								Time Spent: {task.total_minutes_spent / 60} / {task.total_minutes_left / 60 + ' '}
-								<span>(hours)</span>
+								Time Spent: {+(task.total_minutes_spent / 60).toFixed(2)} / 10000
+								<span> (hours)</span>
 							</p>
 							<span slot="footer">
 								<div class="btn-group variant-filled">
@@ -99,4 +108,17 @@
 			</div>
 		{/if}
 	</div>
+
+	<p class="text-center mt-16">
+		NOTE: This app stores data in your browser. So if you clear your storage, you will loose all
+		progress.
+	</p>
+	<p class="text-center mt-2">
+		You can use the export button below to download all your progress so you don't loose it.
+	</p>
+	<p class="text-center mt-2">
+		To import exported tasks, goto the <a href="/tasks/create" class="underline text-primary-500"
+			>Add Tasks</a
+		> page.
+	</p>
 </section>

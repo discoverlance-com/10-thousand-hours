@@ -24,6 +24,16 @@ function setTasks() {
 				const tasksList = new TaskList();
 				return tasksList.updateItem(id, title);
 			}),
+		updateTimer: (id: string, time_spent = 1) =>
+			update(() => {
+				const tasksList = new TaskList();
+				return tasksList.updateTimer(id, time_spent);
+			}),
+		updateAllItems: (newTasks: Task[]) =>
+			update(() => {
+				const tasksList = new TaskList();
+				return tasksList.updateAllItems(newTasks);
+			}),
 		remove: (id: string) =>
 			update(() => {
 				const tasksList = new TaskList();

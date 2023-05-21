@@ -30,11 +30,40 @@ export class TaskList {
 		return this.tasks;
 	}
 
+	updateTimer(id: string, time_spent: Task['total_minutes_spent']) {
+		const tasks = this.getStorageItems();
+		const task = tasks.findIndex((t) => t.id === id);
+		if (task !== -1) {
+			tasks[task].total_minutes_spent += time_spent;
+			tasks[task].total_minutes_left -= time_spent;
+			localStorage.setItem(TASKS_NAME, JSON.stringify({ tasks }));
+			this.tasks = tasks;
+		}
+
+		return this.tasks;
+	}
+
 	removeItem(id: string) {
 		const tasks = this.getStorageItems();
 		const filteredTasks = tasks.filter((t) => t.id !== id);
 		localStorage.setItem(TASKS_NAME, JSON.stringify({ tasks: filteredTasks }));
 		this.tasks = filteredTasks;
+		return this.tasks;
+	}
+
+	updateAllItems(newTasks: Task[]) {
+		const tasks = this.getStorageItems();
+		for (let count = 0; count < newTasks.length; count++) {
+			const task = tasks.findIndex((t) => t.id === newTasks[count].id);
+			if (task !== -1) {
+				tasks[task] = newTasks[count];
+			} else {
+				tasks.push(newTasks[count]);
+			}
+		}
+		localStorage.setItem(TASKS_NAME, JSON.stringify({ tasks }));
+		this.tasks = tasks;
+
 		return this.tasks;
 	}
 

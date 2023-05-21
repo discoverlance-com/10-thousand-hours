@@ -34,7 +34,7 @@
 	<meta name="description" content="View stats of your progress" />
 </svelte:head>
 
-<section in:fade={{ duration: 100, delay: 100 }}>
+<section>
 	<h1 class="text-4xl font-bold text-center gradient-heading">Statistics and Insights</h1>
 	<p class="mt-2 text-center">Find meaningful insights and analytics about your study so far</p>
 

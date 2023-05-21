@@ -4,6 +4,8 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
+	import type { Task } from '$lib/Task';
+	import UploadFile from './UploadFile.svelte';
 
 	function handleSubmit() {
 		error = '';
@@ -56,9 +58,11 @@
 	<meta name="description" content={taskId ? 'Update ' : 'Create ' + 'a learning task'} />
 </svelte:head>
 
-<section in:fade={{ duration: 100, delay: 100 }}>
+<section>
 	<h1 class="text-4xl font-bold text-center gradient-heading">{pageTitle} task</h1>
 	<p class="text-center mt-2">{pageTitle} a learning item</p>
+
+	<UploadFile />
 
 	{#if success}
 		<aside class="alert variant-ghost-success mt-2" transition:fade>

@@ -5,6 +5,9 @@
 	import { quintOut } from 'svelte/easing';
 	import { crossfade, fade } from 'svelte/transition';
 	import type { Task } from '$lib/Task';
+	import { createEventDispatcher } from 'svelte';
+
+	const dispatch = createEventDispatcher();
 
 	type DraggingEvent = DragEvent & {
 		currentTarget: EventTarget & HTMLDivElement;
@@ -45,6 +48,9 @@
 			const taskId = event.dataTransfer.getData('taskId');
 			if (taskId) {
 				currentTask = $allTasks.find((t) => t.id === taskId);
+				dispatch('taskAdded', {
+					currentTask: currentTask?.id
+				});
 			}
 		}
 	}
@@ -102,7 +108,7 @@
 <!-- Drag and Drop box -->
 <div class="flex justify-center mt-16">
 	<div
-		class="border-primary-600 border-2 border-dashed rounded-3xl w-96 h-64 bg-primary-50"
+		class="border-primary-600 border-2 border-dashed rounded-3xl w-96 h-48 bg-primary-50"
 		on:drop|preventDefault={handleDragDrop}
 		on:dragenter={handleDragEnter}
 		on:dragleave={handleDragLeave}

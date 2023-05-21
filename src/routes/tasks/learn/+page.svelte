@@ -1,10 +1,11 @@
-<script>
+<script lang="ts">
 	import { allTasks } from '$lib/stores/taskStore';
 	import { browser } from '$app/environment';
-	import { crossfade, fade } from 'svelte/transition';
 
 	import Pomodoro from './Pomodoro.svelte';
 	import TaskList from './TaskList.svelte';
+
+	let currentTask: string;
 </script>
 
 <svelte:head>
@@ -12,7 +13,7 @@
 	<meta name="description" content="Create a new task" />
 </svelte:head>
 
-<section in:fade={{ duration: 100, delay: 100 }}>
+<section class="pb-16">
 	<h1 class="text-4xl font-bold text-center gradient-heading">Start Learning</h1>
 
 	<p class="mt-2 text-center">
@@ -34,10 +35,14 @@
 				</div>
 			</aside>
 		{:else}
-			<TaskList />
+			<TaskList
+				on:taskAdded={(event) => {
+					currentTask = event.detail.currentTask;
+				}}
+			/>
 		{/if}
 
 		<!-- Timer -->
-		<Pomodoro />
+		<Pomodoro {currentTask} />
 	</div>
 </section>
